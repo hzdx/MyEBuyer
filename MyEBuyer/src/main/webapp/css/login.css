@@ -1,0 +1,29 @@
+	body{
+		margin:0px;
+		padding:0px;
+		overflow:hidden;
+	}
+	#container{
+		width:100%；
+	}
+	#img{
+		position:absolute;
+		top:180px;
+		left:200px;	
+	}
+	#tx{
+		position:absolute;
+		top:200px;
+		right:300px;	
+		
+		padding:10px;
+		
+		font-size:18px;
+	}
+	#input input{
+		width:120px;
+		height:16px;
+		margin-bottom:5px;
+		background-color:#CCC;
+		border:2px #333333;
+	}
