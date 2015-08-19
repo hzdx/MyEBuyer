@@ -1,17 +1,21 @@
 package com.mycom.controller;
 
-import java.io.File;
-import java.util.UUID;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mycom.domain.User;
@@ -25,6 +29,15 @@ public class UserController {
 
   @Autowired
   private UserService userService;
+  
+  @InitBinder  
+  protected void initBinder(HttpServletRequest request,  
+              ServletRequestDataBinder binder) throws Exception {   
+        DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");  
+        CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);  
+        binder.registerCustomEditor(Date.class, dateEditor);  
+        //super.initBinder(request, binder);   
+  }
   
   //private static Logger logger = Logger.getLogger(UserController.class); 
   @RequestMapping(value="/login")
@@ -92,5 +105,19 @@ public class UserController {
           
       }}
       return mv;
+  }
+  
+//判断用户名是否已经存在
+  @RequestMapping(value="/checkName")
+  public void checkIsExist(HttpServletRequest request,
+    HttpServletResponse response) throws IOException{
+      String name = request.getParameter("name");
+      if(userService.checkName(name)==null){
+          response.setContentType("text/html;charset=utf-8");
+          response.getWriter().print("<font color='green'>该用户名可以使用</font>");
+      }else{
+          response.setContentType("text/html;charset=utf-8");
+          response.getWriter().print("<font color='red'>该用户名已经存在</font>");
+      }
   }
 }

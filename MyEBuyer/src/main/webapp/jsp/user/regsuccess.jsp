@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta http-equiv="refresh" content="3;url=<%=request.getContextPath()%>/login.jsp">
 </head>
 <!-- 上面几行必须有才能保证中文不乱码 -->
 <h2>注册成功!</h2>

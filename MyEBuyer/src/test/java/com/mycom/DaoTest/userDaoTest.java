@@ -31,4 +31,12 @@ public class userDaoTest {
     }
   }
 
+  @Test
+  public void testNoId(){
+    User user = new User();
+    user.setName("bbb");
+    user.setPassword("eee");
+    user.setBirthday(new Date());
+    userDao.save(user);
+  }
 }

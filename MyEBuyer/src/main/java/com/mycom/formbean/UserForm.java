@@ -28,6 +28,7 @@ public class UserForm extends User {
       user.setId(this.getId());
       user.setName(this.getName());
       user.setPassword(this.getPassword());
+      user.setBirthday(this.getBirthday());
       return user;
   }
   
