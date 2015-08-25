@@ -12,25 +12,27 @@ import com.mycom.domain.User;
 public class UserService {
   @Autowired
   private UserDao userDao;
-  public User save(User user){
+
+  public User save(User user) {
     return userDao.save(user);
   }
-  
-  public User login(String name,String psw){
-    List<User> list =  userDao.findUserByNameAndPsw(name, psw);
-    if(list.size()>0){
+
+  public User login(String name, String psw) {
+    List<User> list = userDao.findUserByNameAndPsw(name, psw);
+    if (list.size() > 0) {
       return list.get(0);
-    }else{
+    } else {
       return null;
     }
   }
-  
-  public User checkName(String name){
-    List<User> list =  userDao.findUserByName(name);
-    if(list.size()>0){
+
+  public User checkName(String name) {
+    List<User> list = userDao.findUserByName(name);
+    if (list.size() > 0) {
       return list.get(0);
-    }else{
+    } else {
       return null;
     }
   }
+
 }

@@ -5,7 +5,13 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/login.css" type="text/css" />
-		<title>欢迎光临网上商城</title> 
+		<title>欢迎光临网上商城</title>
+		<script type="text/javascript">
+			function hyz(){
+				var img = document.getElementById("imgVerifyCode");
+				img.src="<%=request.getContextPath()%>/verifycode?a="+ new Date().getTime();
+			}
+		</script> 
 	</head>
 
 	<body id="container">
@@ -16,6 +22,9 @@
 		          <div id="input">
 		              用户: <input type="text" id="us" name="username"/><br/>
 		              密码: <input type="password" id="psw" name="password"/><br/>
+		              验证码：<input type="text" name="verifycode"/><br/>
+		              <img src="<%=request.getContextPath()%>/verifycode" id="imgVerifyCode"/>
+		              <a href="javascript:hyz()">换一张</a>
 		          </div>
 		           <div>
 		               <input type="submit" value="登陆" style="width:80px; height:25px; background-color:#666;"/>		                

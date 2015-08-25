@@ -24,100 +24,109 @@ import com.mycom.service.UserService;
 
 
 @Controller
-@RequestMapping(value="/user")
+@RequestMapping(value = "/user")
 public class UserController {
 
   @Autowired
   private UserService userService;
-  
-  @InitBinder  
-  protected void initBinder(HttpServletRequest request,  
-              ServletRequestDataBinder binder) throws Exception {   
-        DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");  
-        CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);  
-        binder.registerCustomEditor(Date.class, dateEditor);  
-        //super.initBinder(request, binder);   
-  }
-  
-  //private static Logger logger = Logger.getLogger(UserController.class); 
-  @RequestMapping(value="/login")
-  public ModelAndView Login(HttpServletRequest req,HttpServletResponse res) throws Exception{
-      ModelAndView mv = new ModelAndView();
-      String name = req.getParameter("username");      
-      String psw = req.getParameter("password");
-      
-      User user = userService.login(name, psw);
-      if(user==null){
-          req.setAttribute("msg", "用户名或密码不正确！");
-          req.getRequestDispatcher("/login.jsp").forward(req, res);
-          return null;
-      }else{
-          mv.setViewName("/user/index");
-          mv.addObject("user", user);
-          return mv;
-      }   
-  }
-  
-  @RequestMapping(value="/register",method=RequestMethod.GET)
-  public ModelAndView Register(){
-      //logger.info("this is register controller!");
-      ModelAndView mv = new ModelAndView();
-      mv.setViewName("/user/register");
-      return mv;
-  }
-  
-  @RequestMapping(value="/reg")
-  public ModelAndView Reg(@ModelAttribute UserForm form,HttpServletRequest req,HttpServletResponse res/*,MultipartFile pictureFile*/
-      ) throws Exception {
-      ModelAndView mv = new ModelAndView();
-      if(!form.validate()){   
-          mv.addObject("form", form);
-          mv.addObject("errors", form.getErrors());
-          mv.setViewName("/user/register");
-          
-      }else {
-          if(userService.checkName(form.getName())!=null){
-              mv.addObject("userExist", "该用户名已存在");
-              mv.addObject("form", form);
-              mv.addObject("errors", form.getErrors());
-              mv.setViewName("/user/register");
-              
-          }else{
-          User user = form.transToUser();
-          userService.save(user);
-          
-          //上传头像部分
-          /*String pictureFile_name =  pictureFile.getOriginalFilename();
-          if(!(pictureFile_name==null || "".equals(pictureFile_name))){
 
-          String newFileName = UUID.randomUUID().toString()+pictureFile_name.substring(pictureFile_name.lastIndexOf("."));
-
-          File uploadPic = new java.io.File("D:/temp/pic/"+newFileName);
-          
-              if(!uploadPic.exists()){
-                  uploadPic.mkdirs();
-              }
-
-              pictureFile.transferTo(uploadPic);
-          }*/
-
-          mv.setViewName("/user/regsuccess");
-          
-      }}
-      return mv;
+  @InitBinder
+  protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
+      throws Exception {
+    DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+    CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
+    binder.registerCustomEditor(Date.class, dateEditor);
+    // super.initBinder(request, binder);
   }
-  
-//判断用户名是否已经存在
-  @RequestMapping(value="/checkName")
-  public void checkIsExist(HttpServletRequest request,
-    HttpServletResponse response) throws IOException{
-      String name = request.getParameter("name");
-      if(userService.checkName(name)==null){
-          response.setContentType("text/html;charset=utf-8");
-          response.getWriter().print("<font color='green'>该用户名可以使用</font>");
-      }else{
-          response.setContentType("text/html;charset=utf-8");
-          response.getWriter().print("<font color='red'>该用户名已经存在</font>");
+
+  // private static Logger logger = Logger.getLogger(UserController.class);
+  @RequestMapping(value = "/login")
+  public ModelAndView Login(HttpServletRequest req, HttpServletResponse res) throws Exception {
+    ModelAndView mv = new ModelAndView();
+    String name = req.getParameter("username");
+    String psw = req.getParameter("password");
+    String verifyCode = req.getParameter("verifycode");
+    User user = userService.login(name, psw);
+    if (verifyCode.equalsIgnoreCase(req.getSession().getAttribute("vCode").toString())) {
+      if (user == null) {
+        req.setAttribute("msg", "用户名或密码不正确！");
+        req.getRequestDispatcher("/login.jsp").forward(req, res);
+        return null;
+      } else {
+        mv.setViewName("/user/index");
+        mv.addObject("user", user);
+        return mv;
       }
+    } else {
+      req.setAttribute("msg", "验证码不正确！");
+      req.getRequestDispatcher("/login.jsp").forward(req, res);
+      return null;
+    }
+  }
+
+  @RequestMapping(value = "/register", method = RequestMethod.GET)
+  public ModelAndView Register() {
+    // logger.info("this is register controller!");
+    ModelAndView mv = new ModelAndView();
+    mv.setViewName("/user/register");
+    return mv;
+  }
+
+  @RequestMapping(value = "/reg")
+  public ModelAndView Reg(@ModelAttribute UserForm form, HttpServletRequest req,
+      HttpServletResponse res/* ,MultipartFile pictureFile */
+  ) throws Exception {
+    ModelAndView mv = new ModelAndView();
+    if (!form.validate()) {
+      mv.addObject("form", form);
+      mv.addObject("errors", form.getErrors());
+      mv.setViewName("/user/register");
+
+    } else {
+      if (userService.checkName(form.getName()) != null) {
+        mv.addObject("userExist", "该用户名已存在");
+        mv.addObject("form", form);
+        mv.addObject("errors", form.getErrors());
+        mv.setViewName("/user/register");
+
+      } else {
+        User user = form.transToUser();
+        userService.save(user);
+
+        // 上传头像部分
+        /*
+         * String pictureFile_name = pictureFile.getOriginalFilename(); if(!(pictureFile_name==null
+         * || "".equals(pictureFile_name))){
+         * 
+         * String newFileName =
+         * UUID.randomUUID().toString()+pictureFile_name.substring(pictureFile_name
+         * .lastIndexOf("."));
+         * 
+         * File uploadPic = new java.io.File("D:/temp/pic/"+newFileName);
+         * 
+         * if(!uploadPic.exists()){ uploadPic.mkdirs(); }
+         * 
+         * pictureFile.transferTo(uploadPic); }
+         */
+
+        mv.setViewName("/user/regsuccess");
+
+      }
+    }
+    return mv;
+  }
+
+  // 判断用户名是否已经存在
+  @RequestMapping(value = "/checkName")
+  public void checkIsExist(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+    String name = request.getParameter("name");
+    if (userService.checkName(name) == null) {
+      response.setContentType("text/html;charset=utf-8");
+      response.getWriter().print("<font color='green'>该用户名可以使用</font>");
+    } else {
+      response.setContentType("text/html;charset=utf-8");
+      response.getWriter().print("<font color='red'>该用户名已经存在</font>");
+    }
   }
 }
