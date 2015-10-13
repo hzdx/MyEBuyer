@@ -26,6 +26,7 @@ import com.mycom.service.UserService;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
+
   @Autowired
   private UserService userService;
 
@@ -91,6 +92,23 @@ public class UserController {
       } else {
         User user = form.transToUser();
         userService.save(user);
+
+        // 上传头像部分
+        /*
+         * String pictureFile_name = pictureFile.getOriginalFilename(); if(!(pictureFile_name==null
+         * || "".equals(pictureFile_name))){
+         * 
+         * String newFileName =
+         * UUID.randomUUID().toString()+pictureFile_name.substring(pictureFile_name
+         * .lastIndexOf("."));
+         * 
+         * File uploadPic = new java.io.File("D:/temp/pic/"+newFileName);
+         * 
+         * if(!uploadPic.exists()){ uploadPic.mkdirs(); }
+         * 
+         * pictureFile.transferTo(uploadPic); }
+         */
+
         mv.setViewName("/user/regsuccess");
 
       }
