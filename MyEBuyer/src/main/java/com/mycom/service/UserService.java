@@ -18,7 +18,7 @@ public class UserService {
   }
 
   public User login(String name, String psw) {
-    List<User> list = userDao.findUserByNameAndPsw(name, psw);
+    List<User> list = userDao.findByNameAndPassword(name, psw);
     if (list.size() > 0) {
       return list.get(0);
     } else {
@@ -27,7 +27,7 @@ public class UserService {
   }
 
   public User checkName(String name) {
-    List<User> list = userDao.findUserByName(name);
+    List<User> list = userDao.findByName(name);
     if (list.size() > 0) {
       return list.get(0);
     } else {

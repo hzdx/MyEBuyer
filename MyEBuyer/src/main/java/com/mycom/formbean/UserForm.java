@@ -7,7 +7,7 @@ import com.mycom.domain.User;
 
 public class UserForm extends User {
   private String repsw;
-  private Map errors = new HashMap();
+  private Map<String, String> errors = new HashMap<String, String>();
 
   public String getRepsw() {
     return repsw;
@@ -17,11 +17,11 @@ public class UserForm extends User {
     this.repsw = repsw;
   }
 
-  public Map getErrors() {
+  public Map<String, String> getErrors() {
     return errors;
   }
 
-  public void setErrors(Map errors) {
+  public void setErrors(Map<String, String> errors) {
     this.errors = errors;
   }
 

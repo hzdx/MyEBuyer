@@ -25,7 +25,7 @@ public class userDaoTest {
 
   @Test
   public void testLogin() {
-    List<User> list = userDao.findUserByNameAndPsw("小王", "密码");
+    List<User> list = userDao.findByNameAndPassword("小王", "密码");
     System.out.println(list.size());
     for (User user : list) {
       System.out.println(user);

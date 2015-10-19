@@ -9,9 +9,9 @@ import com.mycom.domain.User;
 
 public interface UserDao extends CrudRepository<User, Integer> {
 
-  @Query("SELECT u FROM User u WHERE u.name=?1 AND u.password = ?2")
-  public List<User> findUserByNameAndPsw(String name, String password);
+  /*@Query("SELECT u FROM User u WHERE u.name=?1 AND u.password = ?2")*/
+  public List<User> findByNameAndPassword(String name, String password);
 
-  @Query("SELECT u FROM User u WHERE u.name=?1")
-  public List<User> findUserByName(String name);
+  /*@Query("SELECT u FROM User u WHERE u.name=?1")*/
+  public List<User> findByName(String name);
 }
