@@ -4,26 +4,26 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/login.css" type="text/css" />
+		<link rel="stylesheet" href="/css/login.css" type="text/css" />
 		<title>欢迎光临网上商城</title>
 		<script type="text/javascript">
 			function hyz(){
 				var img = document.getElementById("imgVerifyCode");
-				img.src="<%=request.getContextPath()%>/verifycode?a="+ new Date().getTime();
+				img.src="/verifycode?a="+ new Date().getTime();
 			}
 		</script> 
 	</head>
 
 	<body id="container">
 	    <div>
-	    	<form action="<%=request.getContextPath()%>/user/login" method="post">
-		        <div id="img"><img src="<%=request.getContextPath()%>/img/uat.png" alt="" /></div>
+	    	<form action="/user/login" method="post">
+		        <div id="img"><img src="/img/uat.png" alt="" /></div>
 		          <div id="tx">
 		          <div id="input">
 		              用户: <input type="text" id="us" name="username"/><br/>
 		              密码: <input type="password" id="psw" name="password"/><br/>
 		              验证码：<input type="text" name="verifycode"/><br/>
-		              <img src="<%=request.getContextPath()%>/verifycode" id="imgVerifyCode"/>
+		              <img src="/verifycode" id="imgVerifyCode"/>
 		              <a href="javascript:hyz()">换一张</a>
 		          </div>
 		           <div>
@@ -37,8 +37,8 @@
 	    
 	     <div style=" position:absolute;right:270px; bottom:250px;">
 	     	&nbsp;&nbsp;&nbsp;&nbsp;<font style="color: red;font-size: 18px">${msg}</font><br/>
-	     	<a href="<%=request.getContextPath()%>/user/register">用户注册</a>
-	        <a href="http://www.etonenet.com/" style="margin-left:90px;">关于我们</a>
+	     	<a href="/user/register">用户注册</a>
+	        <a href="#" style="margin-left:90px;">关于我们</a>
 	     </div>
 	</body>
 </html>

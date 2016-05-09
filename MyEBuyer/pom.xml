@@ -4,7 +4,7 @@
 	<groupId>com.mycom.myebuyer</groupId>
 	<artifactId>MyEBuyer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
+	<packaging>war</packaging>
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -104,15 +104,27 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<finalName>ROOT</finalName>
+		<resources>
+			<resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
 		</plugins>
