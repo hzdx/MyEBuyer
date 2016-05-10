@@ -1,17 +1,13 @@
 package com.mycom.dao;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.Query;
+import com.mycom.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
-import com.mycom.domain.User;
+import java.util.List;
 
 public interface UserDao extends CrudRepository<User, Integer> {
 
-  /*@Query("SELECT u FROM User u WHERE u.name=?1 AND u.password = ?2")*/
-  public List<User> findByNameAndPassword(String name, String password);
+    List<User> findByNameAndPassword(String name, String password);
 
-  /*@Query("SELECT u FROM User u WHERE u.name=?1")*/
-  public List<User> findByName(String name);
+    List<User> findByName(String name);
 }

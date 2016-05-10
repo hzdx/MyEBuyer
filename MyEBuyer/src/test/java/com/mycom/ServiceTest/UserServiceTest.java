@@ -1,5 +1,6 @@
 package com.mycom.ServiceTest;
 
+import com.mycom.domain.User;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,6 +14,11 @@ public class UserServiceTest {
   UserService userService = context.getBean(UserService.class);
 
   @Test
-  public void testSave() {}
+  public void testSave() {
+    User user = new User();
+    user.setName("xiaom");
+    user.setPassword("1234");
+    userDao.save(user);
+  }
 
 }

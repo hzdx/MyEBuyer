@@ -1,13 +1,11 @@
 package com.mycom.formbean;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.mycom.domain.User;
 
 public class UserForm extends User {
   private String repsw;
-  private Map<String, String> errors = new HashMap<String, String>();
+  private String verifycode;
+  private String errors = "";
 
   public String getRepsw() {
     return repsw;
@@ -17,11 +15,11 @@ public class UserForm extends User {
     this.repsw = repsw;
   }
 
-  public Map<String, String> getErrors() {
+  public String getErrors() {
     return errors;
   }
 
-  public void setErrors(Map<String, String> errors) {
+  public void setErrors(String errors) {
     this.errors = errors;
   }
 
@@ -36,37 +34,39 @@ public class UserForm extends User {
     return user;
   }
 
+  public String getVerifycode() {
+    return verifycode;
+  }
+
+  public void setVerifycode(String verifycode) {
+    this.verifycode = verifycode;
+  }
+
   public boolean validate() {
-    boolean isOK = true;
-    if (this.getName() == null || this.getName().trim().equals("")) {
-      isOK = false;
-      errors.put("name", "用户名不能为空");
-    } else {
-      if (!this.getName().matches("[A-Za-z]{3,8}")) {
-        isOK = false;
-        errors.put("name", "用户名必须是3-8位");
-      }
-    }
-
-    if (this.getPassword() == null || this.getPassword().trim().equals("")) {
-      isOK = false;
-      errors.put("password", "密码不能为空");
-    } else {
-      if (!this.getPassword().matches("\\d{3,8}")) {
-        isOK = false;
-        errors.put("password", "密码必须是3-8位数字");
-      }
-    }
-
-    if (this.getRepsw() == null || this.getRepsw().trim().equals("")) {
-      isOK = false;
-      errors.put("password2", "确认密码不能为空");
-    } else {
-      if (!(this.getPassword().equals(getRepsw()))) {
-        isOK = false;
-        errors.put("password2", "两次密码必须一致");
-      }
-    }
+    return true;
+    // TODO: 2016/5/10  服务端表单校验
+//    if (this.getName() == null || this.getName().trim().equals("")) {
+//      errors = "用户名不能为空";
+//      return false;
+//    } else if (this.getPassword() == null || !this.getPassword().matches("\\d{3,8}") ) {
+//      isOK = false;
+//      errors.put("password", "密码不能为空");
+//    } else {
+//      if () {
+//        isOK = false;
+//        errors.put("password", "密码必须是3-8位数字");
+//      }
+//    }
+//
+//    if (this.getRepsw() == null || this.getRepsw().trim().equals("")) {
+//      isOK = false;
+//      errors.put("password2", "确认密码不能为空");
+//    } else {
+//      if (!(this.getPassword().equals(getRepsw()))) {
+//        isOK = false;
+//        errors.put("password2", "两次密码必须一致");
+//      }
+//    }
 
     /*
      * if(this.email==null || this.email.trim().equals("")){ isOK = false; errors.put("email",
@@ -87,6 +87,5 @@ public class UserForm extends User {
         * errors.put("nickname", "昵称必须是汉字"); } }
         */
 
-    return isOK;
   }
 }

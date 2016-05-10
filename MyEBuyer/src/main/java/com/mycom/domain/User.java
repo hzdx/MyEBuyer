@@ -1,8 +1,11 @@
 package com.mycom.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,6 +17,7 @@ public class User {
   private String name;
   private String password;
   private Date birthday;
+  private String phone;
 
 
   public int getId() {
@@ -46,6 +50,14 @@ public class User {
 
   public void setBirthday(Date birthday) {
     this.birthday = birthday;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
   }
 
   public User() {}

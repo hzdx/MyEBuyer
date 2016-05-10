@@ -1,0 +1,70 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>欢迎光临网上商城</title>
+    <link rel="stylesheet" href="css/login.css" type="text/css"/>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript">
+
+        function submitForm() {
+            var hint = $("#hintArea");
+            var username = $('#us').val();
+            if ($.trim(username) === '') {
+                hint.text('用户名不能为空！');
+                return false;
+            }
+            var password = $('#psw').val();
+            if ($.trim(password) === '') {
+                hint.text('密码不能为空！');
+                return false;
+            }
+            $.ajax({
+                cache: true,
+                type: 'post',
+                url: '/user/login.json',
+                data: $('#userLoginForm').serialize(),
+//              dataType:'jsonp',
+//              jsonp:"callback",
+                success: function (data) {
+                    if (data.status === 'ok') {
+                        location.href = "user/index.html";
+                    } else {
+                        hint.text('用户名或者密码不正确!');
+                        return false;
+                    }
+                },
+                error: function (request) {
+                    alert("Connection error");
+                }
+            });
+
+        }
+        ;
+    </script>
+</head>
+
+<body id="container">
+<div>
+    <form id="userLoginForm">
+        <div id="img"><img src="img/uat.png" alt=""/></div>
+        <div id="tx">
+            <div id="input">
+                用户: <input type="text" id="us" name="username"/><br/>
+                密码: <input type="password" id="psw" name="password"/><br/>
+            </div>
+            <div>
+                <input value="登陆" type="button" onclick="submitForm()" class="subbotton-style"/>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+
+<div style=" position:absolute;right:270px; bottom:250px;">
+    &nbsp;&nbsp;&nbsp;&nbsp;<font style="color: red;font-size: 18px" id="hintArea"></font><br/>
+    <a href="user/register.html">用户注册</a>
+    <a href="#" style="margin-left:90px;">关于我们</a>
+</div>
+</body>
+</html>

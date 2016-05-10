@@ -1,0 +1,58 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <script src="../js/laydate/laydate.js" type="text/javascript" language="javascript"></script>
+    <script src="../js/jquery-1.7.1.min.js" type="text/javascript" language="javascript"></script>
+    <script src="../js/registerValidate.js" type="text/javascript" language="JavaScript"></script>
+</head>
+<body>
+<form id="userRegisterForm">
+    <table style="margin-left:100px;margin-top:50px">
+        <tr>
+            <td>用户名</td>
+            <td><input id="nameText" type="text" name="name" /></td>
+            <td><span id="checkName"></span></td>
+        </tr>
+
+        <tr>
+            <td>密码</td>
+            <td><input id="psw" type="password" name="password" ></td>
+            <td><span id="checkPsw">6~16个字符，区分大小写</span></td>
+            <!--<input id="md5psw" type="hidden" name="md5pws"/>-->
+        </tr>
+
+        <tr>
+            <td>确认密码</td>
+            <td><input id="psw2" type="password" name="repsw" /></td>
+            <td><span id="checkPsw2">请再次填写密码</span></td>
+        </tr>
+
+        <tr>
+            <td>手机号</td>
+            <td><input id="phone" type="phone" name="phone" /></td>
+            <td><span id="checkPhone" >请填写正确的手机号</span></td>
+        </tr>
+
+        <tr>
+            <td>生日</td>
+            <td><input type="text" name="birthday" readonly onclick="laydate()"/></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>验证码：<input type="text" id = "vcode" name="verifycode"/><br/> </td>
+            <td><span id="checkVcode" >请填写验证码</span></td>
+            <td><img src="/verifycode" id="imgVerifyCode"/><a href="javascript:hyz()">换一张</a></td>
+        </tr>
+
+        <tr>
+            <td><input type="button" value="注册" onclick="submitRegisterInfo()"/></td>
+            <td><input type="reset" value="重置"/></td>
+        </tr>
+
+    </table>
+
+
+</form>
+</body>
+</html>
