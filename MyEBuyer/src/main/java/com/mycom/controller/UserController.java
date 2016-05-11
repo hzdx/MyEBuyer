@@ -48,12 +48,12 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/register.json", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResult validateUserInfo(@ModelAttribute UserForm form, HttpServletRequest req) {
+    public JsonResult validateUserInfo(@ModelAttribute UserForm form,String verifycode, HttpServletRequest req) {
         if (checkIsExist(form.getName())) {
             return JsonResult.FAIL.message("该用户名已存在");
         } else if (!form.validate()) {
             return JsonResult.FAIL.message(form.getErrors());
-        } else if (!form.getVerifycode().equalsIgnoreCase(getSessionInfo(req, "vCode").toString())) {
+        } else if (!verifycode.equalsIgnoreCase(getSessionInfo(req, "vCode").toString())) {
             return JsonResult.FAIL.message("验证码不正确");
         } else {
             User user = form.transToUser();

@@ -1,5 +1,92 @@
+<html>
 <head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>welcome</title>
+    <script src="../js/jquery-1.7.1.min.js"></script>
+    <script>
+        var pageSize = 10;
+
+        //获取当前url的查询参数中的参数值
+        function getParamValue(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+
+        function showdata(data) {
+            var arr = data.content;
+            for (let i = 0; i < arr.length; i++) {
+                var html = "<p>" + arr[i].id + "..<b>" + arr[i].name + "</b>.." + arr[i].price + ".." + arr[i].descri + "</p>"
+                $('#queryResult').append(html);
+            }
+            var html = '共' + data.totalElements + '条结果，共' + data.totalPages + '页，这是第' + (data.number + 1) + '页';
+            $('#searchStat').html(html);
+        }
+
+        function init() {
+            var pageNoValue = getParamValue('pageNo');
+            var pageNo = pageNoValue === null ? 1 : pageNoValue;
+            $.ajax({
+                type: 'get',
+                url: '/item/query.json',
+                data: 'pageNo='+pageNo+'&pageSize=' + pageSize,
+                success: function (data) {
+                    showdata(data);
+                },
+                error: function () {
+                    alert('connect failed!');
+                }
+            });
+        }
+
+        function search() {
+            $('#searchStat').html("");
+            $('#queryResult').empty();
+//            var reg = /^[0-9]+(\.[0-9]+)?$/;
+            var pageNoValue = getParamValue('pageNo');
+            var pageNo = pageNoValue === null ? 1 : pageNoValue;
+            $.ajax({
+                type: 'get',
+                url: '/item/query.json',
+                data: $('#searchForm').serialize() + '&pageNo=' + pageNo + '&pageSize=' + pageSize,
+                success: function (data) {
+                    showdata(data);
+                },
+                error: function () {
+                    alert('connect failed!');
+                }
+            });
+        }
+
+        init();
+    </script>
 </head>
-<title>welcome</title>
-<h2>welcome!</h2>
+<body>
+<h2>欢迎!</h2>
+
+<div>
+    <div>
+        <span><input type="button" onclick="search()" value="search"/></span>
+        <span id="searchStat"></span>
+    </div>
+
+    <form id="searchForm">
+        <tr>
+            <td>价格</td>
+            <td><input name="floorPrice" id="floorPrice"/> - <input name="peakPrice" id="peakPrice"/></td>
+        </tr>
+
+        <tr>
+            <td>名字</td>
+            <td><input name="name" id="itemName"/></td>
+        </tr>
+    </form>
+
+    <div id="queryResult">
+
+    </div>
+
+</div>
+</body>
+</html>

@@ -35,7 +35,7 @@ public class userDaoTest {
   @Test
   public void testNoId() {
     User user = new User();
-    user.setId(2);
+    //user.setId(2);
     user.setName("bbb");
     user.setPassword("eee");
     user.setBirthday(new Date());

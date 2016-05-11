@@ -6,7 +6,6 @@ function hyz(){
 
 function validatePsw(){
     var psw = $('#psw').val();
-    //console.log(psw);
     return /^[=/@!#~%&,?;':"<>\|\[\]\{\}\\\(\)\w\s\$\^\-\*\.\+]{6,16}$/.test(psw);
 }
 
@@ -21,7 +20,6 @@ function validateVcode(){
 }
 function submitRegisterInfo(){
     if(isNameOk && validatePsw() && validatePsw2() && validatePhone() ){
-        console.log('ok');
         $.ajax({
             cache: true,
             url: '/user/register.json',
@@ -44,7 +42,7 @@ $(function () {
     $("#nameText").blur(function () {
         var username = $(this).val();
         if($.trim(username) !== '') {
-            $.post("/user/checkName.json", {'name': username}, function (data) {
+            $.get("/user/checkName.json", {'name': username}, function (data) {
                 if (data === false) {
                     $("#checkName").html("<font color='green'>此用户名可以使用<font>");
                     isNameOk = true;
