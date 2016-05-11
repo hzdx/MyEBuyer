@@ -1,6 +1,6 @@
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>欢迎光临网上商城</title>
     <link rel="stylesheet" href="css/login.css" type="text/css"/>
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
@@ -14,7 +14,7 @@
                 return false;
             }
             var password = $('#psw').val();
-            if ($.trim(password) === '') {
+            if (password === '') {
                 hint.text('密码不能为空！');
                 return false;
             }
@@ -45,7 +45,7 @@
 
 <body id="container">
 <div>
-    <form id="userLoginForm">
+    <form id="userLoginForm" >
         <div id="img"><img src="img/uat.png" alt=""/></div>
         <div id="tx">
             <div id="input">

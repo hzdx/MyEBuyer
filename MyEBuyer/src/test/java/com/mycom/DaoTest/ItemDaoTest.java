@@ -15,11 +15,15 @@ public class ItemDaoTest {
 
   @Test
   public void testSave() {
-    Item item = new Item("aaa", "javaDevelop", 20.9, "good book");
-    Item item2 = new Item("aaa", "php", 20.9, "good book");
-    Item item3 = new Item("aaa", ".net", 20.9, "good book");
-    itemDao.save(item2);
-    itemDao.save(item3);
+//    Item item = new Item("c#", 100d, "good book");
+//    item.setFloorPrice(50d);
+//    Item item2 = new Item("c++", 10.9, "good book");
+//    Item item3 = new Item("java", 12.9, "good book");
+    for(int i=0;i<50;i++) {
+      Item item = new Item("c"+i, 20d+i, "good book");
+      itemDao.save(item);
+    }
+    //itemDao.save(item3);
     //Arrays.
   }
 

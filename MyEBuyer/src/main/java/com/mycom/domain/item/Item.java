@@ -1,11 +1,9 @@
 package com.mycom.domain.item;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "item")
@@ -18,10 +16,16 @@ public class Item {
   private Double price;
   private String descri;
 
+  @Transient
+  @JsonIgnore
+  private Double floorPrice;//最低、高价，用于查询
+  @Transient
+  @JsonIgnore
+  private Double peakPrice;
+
   public Item() {}
 
-  public Item(String id, String name, Double price, String descri) {
-    super();
+  public Item(String name, Double price, String descri) {
     this.id = id;
     this.name = name;
     this.price = price;
@@ -65,5 +69,19 @@ public class Item {
     this.descri = descri;
   }
 
+  public Double getFloorPrice() {
+    return floorPrice;
+  }
 
+  public void setFloorPrice(Double floorPrice) {
+    this.floorPrice = floorPrice;
+  }
+
+  public Double getPeakPrice() {
+    return peakPrice;
+  }
+
+  public void setPeakPrice(Double peakPrice) {
+    this.peakPrice = peakPrice;
+  }
 }

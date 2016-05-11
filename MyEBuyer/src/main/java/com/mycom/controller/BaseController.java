@@ -1,7 +1,7 @@
 package com.mycom.controller;
 
-import com.mycom.domain.JSONPObject;
-import com.mycom.domain.JsonResult;
+import com.mycom.json.JSONPObject;
+import com.mycom.json.JsonResult;
 import org.apache.log4j.Logger;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -37,6 +37,7 @@ public class BaseController{
         return JsonResult.FAIL.message(ex.getMessage());
     }
 
+    //将json对象转换为jsonp对象
     protected Object getCallBackResult(JsonResult result,String callback) {
         if(callback == null){
             return result;

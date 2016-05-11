@@ -1,18 +1,13 @@
 package com.mycom.domain;
 
-import org.hibernate.annotations.GenericGenerator;
-
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
 public class User {
   @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
   private String name;
   private String password;

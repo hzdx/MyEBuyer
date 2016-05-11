@@ -1,4 +1,4 @@
-package com.mycom.domain;
+package com.mycom.json;
 
 public class JSONPObject {
 

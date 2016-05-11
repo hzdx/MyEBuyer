@@ -1,4 +1,4 @@
-package com.mycom.domain;
+package com.mycom.json;
 
 import java.util.HashMap;
 
@@ -6,7 +6,7 @@ public class JsonResult extends HashMap<String,Object> {
         private static final String KEY_MESSAGE = "message";
         private static final String STATUS_MESSAGE = "status";
 
-        public static enum STATUS {
+        public enum STATUS {
             OK, FAIL
         }
 

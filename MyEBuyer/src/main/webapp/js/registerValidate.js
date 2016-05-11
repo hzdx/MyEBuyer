@@ -1,4 +1,5 @@
 var isNameOk = false;
+var isSubmit = false;
 function hyz(){
     var img = document.getElementById("imgVerifyCode");
     img.src="/verifycode?a="+ new Date().getTime();
@@ -6,7 +7,6 @@ function hyz(){
 
 function validatePsw(){
     var psw = $('#psw').val();
-    //console.log(psw);
     return /^[=/@!#~%&,?;':"<>\|\[\]\{\}\\\(\)\w\s\$\^\-\*\.\+]{6,16}$/.test(psw);
 }
 
@@ -21,30 +21,35 @@ function validateVcode(){
 }
 function submitRegisterInfo(){
     if(isNameOk && validatePsw() && validatePsw2() && validatePhone() ){
-        console.log('ok');
-        $.ajax({
-            cache: true,
-            url: '/user/register.json',
-            type: 'post',
-            data: $('#userRegisterForm').serialize(),
-            success: function (data) {
-                if (data.status === 'ok') {
-                    location.href = "regsuccess.html";
-                } else {
-                    alert(data.message);
+        if(!isSubmit) {
+            isSubmit = true;
+
+            $.ajax({
+                cache: true,
+                url: '/user/register.json',
+                type: 'post',
+                data: $('#userRegisterForm').serialize(),
+                success: function (data) {
+                    if (data.status === 'ok') {
+                        location.href = "regsuccess.html";
+                    } else {
+                        isSubmit = false;
+                        alert(data.message);
+                    }
+                },
+                error: function (request) {
+                    alert("Connection error");
+                    isSubmit = false;
                 }
-            },
-            error: function (request) {
-                alert("Connection error");
-            }
-        });
+            });
+        }
     }else alert('表单参数不合法，请修改后再提交！');
 }
 $(function () {
     $("#nameText").blur(function () {
         var username = $(this).val();
         if($.trim(username) !== '') {
-            $.post("/user/checkName.json", {'name': username}, function (data) {
+            $.get("/user/checkName.json", {'name': username}, function (data) {
                 if (data === false) {
                     $("#checkName").html("<font color='green'>此用户名可以使用<font>");
                     isNameOk = true;
