@@ -1,8 +1,8 @@
 package com.mycom.ServiceTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mycom.domain.Item;
 import com.mycom.domain.User;
-import com.mycom.domain.item.Item;
 import com.mycom.json.JsonMapper;
 import com.mycom.service.ItemService;
 import org.junit.Test;

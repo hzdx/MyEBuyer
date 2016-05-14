@@ -1,10 +1,11 @@
 package com.mycom.dao;
 
-import com.mycom.domain.item.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.CrudRepository;
+
+import com.mycom.domain.Item;
 
 
 public interface ItemDao extends CrudRepository<Item, String> {

@@ -1,4 +1,4 @@
-package com.mycom.domain.item;
+package com.mycom.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
@@ -26,7 +26,6 @@ public class Item {
   public Item() {}
 
   public Item(String name, Double price, String descri) {
-    this.id = id;
     this.name = name;
     this.price = price;
     this.descri = descri;

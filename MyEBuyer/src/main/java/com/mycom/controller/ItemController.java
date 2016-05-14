@@ -1,7 +1,7 @@
 package com.mycom.controller;
 
 
-import com.mycom.domain.item.Item;
+import com.mycom.domain.Item;
 import com.mycom.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

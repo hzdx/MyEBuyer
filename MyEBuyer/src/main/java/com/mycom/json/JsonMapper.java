@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JsonMapper extends ObjectMapper{
-    public JsonMapper(){
+	private static final long serialVersionUID = 3356808552042395821L;
+
+	public JsonMapper(){
         super();
         //json转换配置，增加容错
         this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

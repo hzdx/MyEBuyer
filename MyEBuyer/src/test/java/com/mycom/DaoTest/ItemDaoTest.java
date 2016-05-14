@@ -1,7 +1,8 @@
 package com.mycom.DaoTest;
 
 import com.mycom.dao.ItemDao;
-import com.mycom.domain.item.Item;
+import com.mycom.domain.Item;
+
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
